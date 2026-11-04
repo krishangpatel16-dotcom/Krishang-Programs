@@ -1,0 +1,10 @@
+1. what is the use of #include<iostream>?
+Ans. It allows us to print output on screen & take input from the keyboard. cout & cin are defined inside iostream 
+	without header file compiler doesn't know what cout & cin. 
+
+2. Why do we write namespace std;
+Ans. i)  Allows us to use standard c++ words directly without writing std::
+     ii) c++ keeps all keywords inside std 
+
+3. What is cout in c++?
+Ans. It is used to display output two times less than (<<) is operator it means send data to the screen. 

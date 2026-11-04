@@ -1,0 +1,57 @@
+
+#include <iostream>
+using namespace std;
+class Wallet
+{
+    private:
+    int walletID;
+    string userName;
+    double balance;
+    
+    public:
+    Wallet (int id, string nm, double bal)
+    {
+        walletID=id;
+        userName=nm;
+        balance=bal;
+    }
+    
+    void loadMoney(double amount)
+    {
+        balance=balance+amount;
+        cout<<"\n successfully added "<<amount<<" to "<<balance-amount;
+    }
+    
+    void display()
+    {
+        cout<<"\n WalletID :"<<walletID;
+        cout<<"\n UserName :"<<userName;
+        cout<<"\n Balance :"<<balance;
+    }
+    
+    void transferMoney(Wallet &receiver,double amount)
+    {
+        if (amount<=balance)
+        {
+            balance-=amount;
+            receiver.balance+=amount;
+            cout<<"\n Successfully transferred "<<amount; 
+        }
+        else
+        {
+            cout<<"Insufficient Balance";
+        }
+    }
+};
+
+int main()
+{
+    Wallet w1(101,"Virat",5000);
+    Wallet w2(102,"Anushka",15000);
+    w1.display();
+    w1.loadMoney(2000);
+    w1.display();
+    w1.transferMoney(w2,3000);
+    w1.display();
+    w2.display();
+}

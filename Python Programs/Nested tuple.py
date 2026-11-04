@@ -1,0 +1,12 @@
+a=int(input("Enter how many entries you have : "))
+t1=()
+t2=()
+for i in range(a):
+    b=int(input("Enter your roll no. "))
+    c=str(input("Enter your name "))
+    d=int(input("Enter marks of Maths "))
+    e=int(input("Enter marks of CS "))
+    t1=(b,c,d,e)
+    t2+=((t1))
+    t1=()
+print(t2)

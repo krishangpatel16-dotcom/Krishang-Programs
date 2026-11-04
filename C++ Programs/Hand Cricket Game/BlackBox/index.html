@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏏 Cricket Mania - Ultimate Cricket Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="stadium-bg">
+        <div class="grass"></div>
+        <div class="pitch"></div>
+        <div class="crowd"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Authentication Modal -->
+        <div id="authModal" class="modal active">
+            <div class="modal-content">
+                <div class="cricket-helmet">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h2>🏏 Welcome to Cricket Mania!</h2>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                    <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+                </div>
+                
+                <form id="loginForm" class="auth-form active">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="Your Player Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+
+                <form id="signupForm" class="auth-form">
+                    <div class="input-group">
+                        <i class="fas fa-user-plus"></i>
+                        <input type="text" id="signupUsername" placeholder="Choose Player Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Create Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Game Screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <!-- Header -->
+            <header class="game-header">
+                <div class="score-board">
+                    <div class="team-score human-team">
+                        <div class="team-name">👤 <span id="humanName">You</span></div>
+                        <div class="score" id="humanScore">0/0</div>
+                    </div>
+                    <div class="match-status">
+                        <h1>🏏 CRICKET MANIA 🏏</h1>
+                        <div id="matchInfo" class="match-info"></div>
+                    </div>
+                    <div class="team-score computer-team">
+                        <div class="team-name">🤖 <span id="computerName">Computer</span></div>
+                        <div class="score" id="computerScore">0/0</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Game Area -->
+            <main class="game-area">
+                <!-- Toss Section -->
+                <div id="tossSection" class="game-section active">
+                    <div class="coin-toss">
+                        <div class="coin" id="coin">
+                            <div class="heads">H</div>
+                            <div class="tails">T</div>
+                        </div>
+                    </div>
+                    <h2>Toss Time!</h2>
+                    <p>Choose <strong>Heads</strong> or <strong>Tails</strong></p>
+                    <div class="choice-buttons">
+                        <button class="choice-btn heads-btn" onclick="selectToss('heads')">
+                            <i class="fas fa-coin"></i> Heads
+                        </button>
+                        <button class="choice-btn tails-btn" onclick="selectToss('tails')">
+                            <i class="fas fa-coins"></i> Tails
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Instructions Section -->
+                <div id="instructionsSection" class="game-section">
+                    <div class="instructions">
+                        <h2>📋 Game Rules</h2>
+                        <ul>
+                            <li>🎯 Choose 1-6 | Computer chooses randomly</li>
+                            <li>🏏 Batting: Different = Runs | Same = OUT</li>
+                            <li>🥎 Bowling: Same = Wicket | Different = Runs to opponent</li>
+                            <li>⚾ 2 Wickets | 12 Balls per innings</li>
+                            <li>🏆 Highest score wins!</li>
+                        </ul>
+                        <button class="btn-primary full-width" onclick="startFirstInnings()">
+                            <i class="fas fa-play"></i> Let's Play!
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Play Section -->
+                <div id="playSection" class="game-section hidden">
+                    <div class="pitch-display">
+                        <div class="batsman" id="batsmanStatus">🧍‍♂️ Batting</div>
+                        <div class="ball-animation" id="ballAnim"></div>
+                        <div class="bowler" id="bowlerStatus">🥎 Bowling</div>
+                    </div>
+                    
+                    <div class="current-over">
+                        <div>Balls: <span id="ballsBowled">0</span>/12</div>
+                        <div>Wickets: <span id="currentWickets">0</span>/2</div>
+                        <div>Runs: <span id="currentRuns">0</span></div>
+                    </div>
+
+                    <div class="number-choices">
+                        <h3>Choose your number (1-6):</h3>
+                        <div class="number-grid">
+                            <button class="num-btn" data-num="1">1</button>
+                            <button class="num-btn" data-num="2">2</button>
+                            <button class="num-btn" data-num="3">3</button>
+                            <button class="num-btn" data-num="4">4</button>
+                            <button class="num-btn" data-num="5">5</button>
+                            <button class="num-btn" data-num="6">🏏 6</button>
+                        </div>
+                    </div>
+
+                    <div id="resultDisplay" class="result-display hidden"></div>
+                </div>
+
+                <!-- Result Section -->
+                <div id="resultSection" class="game-section hidden">
+                    <div class="trophy">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div id="finalResult"></div>
+                    <button class="btn-primary full-width" onclick="restartGame()">
+                        <i class="fas fa-redo"></i> Play Again
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

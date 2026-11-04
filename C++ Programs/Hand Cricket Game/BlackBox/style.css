@@ -1,0 +1,522 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #0f2027 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.stadium-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(45deg, #228B22, #32CD32, #90EE90);
+    animation: sway 20s ease-in-out infinite;
+}
+
+.pitch {
+    position: absolute;
+    bottom: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 8%;
+    background: linear-gradient(90deg, #D2B48C, #F4A460, #D2B48C);
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.crowd {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    height: 20%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        rgba(255,255,255,0.1) 50px,
+        rgba(255,255,255,0.1) 52px
+    );
+    animation: cheer 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+@keyframes cheer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.cricket-helmet {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.modal-content h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.5);
+    z-index: 2;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 50px;
+    border: none;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.input-group input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.2);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(45deg, #FF6B6B, #FFD93D);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.4);
+}
+
+.game-screen {
+    width: 100%;
+    max-width: 1000px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+.game-screen.hidden {
+    display: none;
+}
+
+.game-header {
+    background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1);
+    padding: 20px;
+    text-align: center;
+}
+
+.score-board {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.team-score {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.team-score .team-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.team-score .score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FFD700;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.match-status h1 {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.match-info {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.game-area {
+    padding: 40px;
+}
+
+.game-section {
+    display: none;
+    text-align: center;
+}
+
+.game-section.active {
+    display: block;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.coin-toss {
+    margin: 40px 0;
+}
+
+.coin {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: spin 2s infinite linear;
+}
+
+.coin:hover {
+    transform: scale(1.05);
+}
+
+@keyframes spin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.choice-btn {
+    padding: 20px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heads-btn {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #333;
+}
+
+.tails-btn {
+    background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
+    color: #333;
+}
+
+.choice-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.instructions ul {
+    list-style: none;
+    margin: 30px 0;
+    font-size: 1.1rem;
+}
+
+.instructions li {
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.full-width {
+    width: 100%;
+    max-width: 300px;
+    margin: 30px auto 0;
+}
+
+.pitch-display {
+    position: relative;
+    height: 200px;
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.batsman, .bowler {
+    font-size: 2rem;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    min-width: 150px;
+}
+
+.ball-animation {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FF4444, #CC0000);
+    display: none;
+    animation: bounce 1s ease-in-out;
+    box-shadow: 0 0 20px rgba(255,68,68,0.5);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+}
+
+.current-over {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 30px 0;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+.num-btn {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    background: linear-gradient(45deg, #4ECDC4, #44A08D);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.num-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 15px 30px rgba(78,205,196,0.4);
+}
+
+.num-btn:active {
+    transform: scale(0.95);
+}
+
+.result-display {
+    margin: 30px 0;
+    padding: 25px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.result-display.wicket {
+    background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+    color: white;
+}
+
+.result-display.runs {
+    background: linear-gradient(45deg, #4ECDC4, #6DE2D8);
+    color: #333;
+}
+
+.trophy {
+    font-size: 6rem;
+    color: #FFD700;
+    margin: 30px 0;
+    text-shadow: 0 0 30px rgba(255,215,0,0.5);
+    animation: bounce 2s infinite;
+}
+
+#finalResult {
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    margin: 30px 0;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .score-board {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .game-area {
+        padding: 20px;
+    }
+    
+    .current-over {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .number-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

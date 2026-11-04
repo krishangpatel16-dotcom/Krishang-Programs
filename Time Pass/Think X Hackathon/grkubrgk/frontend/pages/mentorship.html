@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Program | Alumni Network</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Mentorship Program</h1>
+                        <p class="text-gray-600 mt-2">Connect with experienced alumni for guidance and career advice</p>
+                    </div>
+                    <button id="beAMentorBtn" class="btn btn-primary" data-auth>
+                        <i class="fas fa-hand-holding-heart mr-2"></i>
+                        Become a Mentor
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-8">
+            <!-- Search and Filters -->
+            <div class="mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Search Box -->
+                    <div class="lg:col-span-2">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="mentorSearch" 
+                                placeholder="Search mentors by name, company, or expertise..."
+                                class="form-control pl-10"
+                            >
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="lg:col-span-2">
+                        <div class="flex flex-wrap gap-3">
+                            <select id="expertiseFilter" class="form-control">
+                                <option value="">All Expertise</option>
+                                <option value="Leadership">Leadership</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Product">Product Management</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Startup">Startup/Founder</option>
+                                <option value="Research">Research/Academia</option>
+                            </select>
+                            
+                            <select id="industryFilter" class="form-control">
+                                <option value="">All Industries</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                            </select>
+                            
+                            <button id="clearFilters" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mb-8">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalMentors">0</div>
+                        <div class="stat-label">Available Mentors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeMentorships">0</div>
+                        <div class="stat-label">Active Mentorships</div>
+                    </div>
+                     <div class="stat-card">
+                        <div class="stat-number" id="successfulMatches">0</div>
+                        <div class="stat-label">Successful Matches</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentors Grid -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold">Available Mentors</h2>
+                </div>
+
+                <!-- Loading State -->
+                <div id="mentorsLoading" class="text-center py-12">
+                    <div class="spinner mx-auto"></div>
+                    <p class="text-gray-600 mt-4">Finding mentors...</p>
+                </div>
+
+                <!-- Mentors Grid -->
+                <div id="mentorsGrid" class="alumni-grid" style="display: none;">
+                    <!-- Mentor cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="mentorsEmpty" class="text-center py-12 hidden">
+                    <i class="fas fa-user-graduate text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">No mentors found</h3>
+                    <p class="text-gray-600">Try adjusting your filters or check back later</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Request Mentor Modal -->
+    <div id="requestMentorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold">Request Mentorship</h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="requestMentorForm">
+                    <input type="hidden" id="mentorId" name="mentorId">
+                    <div class="form-group">
+                        <label class="form-label">Message to Mentor *</label>
+                        <textarea name="message" class="form-control" rows="5" required placeholder="Introduce yourself and explain why you're interested in their mentorship..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Goals *</label>
+                        <textarea name="goals" class="form-control" rows="3" required placeholder="What do you hope to achieve?"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" form="requestMentorForm" class="btn btn-primary">Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Become Mentor Modal -->
+    <div id="becomeMentorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold">Become a Mentor</h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="becomeMentorForm">
+                    <div class="form-group">
+                        <label class="form-label">Areas of Expertise *</label>
+                        <input type="text" name="expertise" class="form-control" required placeholder="e.g., Leadership, Python, Career Growth">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Max Mentees *</label>
+                        <input type="number" name="maxMentees" class="form-control" min="1" max="5" value="1" required>
+                    </div>
+                     <div class="form-group">
+                        <label class="form-label">Bio for Mentees *</label>
+                        <textarea name="bio" class="form-control" rows="4" required placeholder="How can you help your mentees?"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" form="becomeMentorForm" class="btn btn-primary">Register as Mentor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/mentorship.js"></script>
+    <script src="../script.js"></script>
+</body>
+</html>

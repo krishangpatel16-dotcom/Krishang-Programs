@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Connect - Government Engineering College</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar"></nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Alumni Connect</h1>
+            <p class="subtitle">Government Engineering College's Official Alumni Network</p>
+            <p class="description">Reconnect, Network, and Grow with fellow alumni. Join our community of over 10,000 successful graduates.</p>
+            <div class="hero-buttons">
+                <a href="pages/register.html" class="btn btn-primary">Join Now</a>
+                <a href="pages/login.html" class="btn btn-secondary">Login</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="assets/images/hero-bg.jpg" alt="Alumni Community">
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>10,000+</h3>
+                    <p>Alumni Members</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>500+</h3>
+                    <p>Job Opportunities</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>100+</h3>
+                    <p>Events Yearly</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>$1M+</h3>
+                    <p>Donations Raised</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Connect, Grow, Give Back</h2>
+            <p class="section-subtitle">Our platform helps you stay connected with your alma mater and fellow alumni</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Networking Hub</h3>
+                    <p>Connect with alumni across industries, locations, and graduation years. Build professional relationships.</p>
+                    <a href="pages/alumni-directory.html" class="feature-link">Explore Network →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Job Portal</h3>
+                    <p>Find career opportunities posted by alumni companies. Post jobs and hire from trusted network.</p>
+                    <a href="pages/job-portal.html" class="feature-link">Browse Jobs →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Events & Reunions</h3>
+                    <p>Stay updated with alumni events, workshops, webinars, and annual reunions.</p>
+                    <a href="pages/events.html" class="feature-link">View Events →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Donation Portal</h3>
+                    <p>Support your alma mater's growth through scholarships, infrastructure, and research.</p>
+                    <a href="pages/donate.html" class="feature-link">Donate Now →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Success Stories</h3>
+                    <p>Read inspiring stories from fellow alumni. Share your journey and achievements.</p>
+                    <a href="pages/success-stories.html" class="feature-link">Read Stories →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Mentorship Program</h3>
+                    <p>Get guidance from experienced alumni or mentor the next generation of students.</p>
+                    <a href="#" class="feature-link">Join Program →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Jobs Section -->
+    <section class="jobs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recent Job Opportunities</h2>
+                <a href="pages/job-portal.html" class="view-all">View All Jobs →</a>
+            </div>
+            <div class="jobs-grid" id="recentJobs">
+                <!-- Jobs will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <a href="pages/events.html" class="view-all">View All Events →</a>
+            </div>
+            <div class="events-grid" id="upcomingEvents">
+                <!-- Events will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="stories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Success Stories</h2>
+                <a href="pages/success-stories.html" class="view-all">View All Stories →</a>
+            </div>
+            <div class="stories-grid" id="featuredStories">
+                <!-- Stories will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Reconnect?</h2>
+                <p>Join thousands of alumni who are already networking, mentoring, and making an impact.</p>
+                <div class="cta-buttons">
+                    <a href="pages/register.html" class="btn btn-primary btn-large">Create Your Profile</a>
+                    <a href="pages/login.html" class="btn btn-secondary btn-large">Login to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Load dynamic content
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecentJobs();
+            loadUpcomingEvents();
+            loadFeaturedStories();
+            checkAuthStatus();
+        });
+
+        async function loadRecentJobs() {
+            try {
+                const response = await fetch('http://localhost:5000/api/jobs?limit=3');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const jobsGrid = document.getElementById('recentJobs');
+                    jobsGrid.innerHTML = data.data.map(job => `
+                        <div class="job-card">
+                            <div class="job-header">
+                                <h3>${job.title}</h3>
+                                <span class="job-type">${job.employmentType}</span>
+                            </div>
+                            <div class="job-company">
+                                <i class="fas fa-building"></i>
+                                ${job.company}
+                            </div>
+                            <div class="job-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${job.location}
+                            </div>
+                            <div class="job-footer">
+                                <span class="job-experience">${job.experienceLevel} Level</span>
+                                <a href="pages/job-portal.html?id=${job._id}" class="btn btn-small">View Details</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading jobs:', error);
+            }
+        }
+
+        async function loadUpcomingEvents() {
+            try {
+                const response = await fetch('http://localhost:5000/api/events/upcoming');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const eventsGrid = document.getElementById('upcomingEvents');
+                    eventsGrid.innerHTML = data.data.map(event => `
+                        <div class="event-card">
+                            <div class="event-date">
+                                <span class="event-day">${new Date(event.date).getDate()}</span>
+                                <span class="event-month">${new Date(event.date).toLocaleString('default', { month: 'short' })}</span>
+                            </div>
+                            <div class="event-content">
+                                <h3>${event.title}</h3>
+                                <p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>
+                                <p><i class="fas fa-calendar"></i> ${new Date(event.date).toLocaleDateString()}</p>
+                                <a href="pages/events.html?id=${event._id}" class="btn btn-small">Learn More</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading events:', error);
+            }
+        }
+
+        async function loadFeaturedStories() {
+            try {
+                const response = await fetch('http://localhost:5000/api/stories/featured');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const storiesGrid = document.getElementById('featuredStories');
+                    storiesGrid.innerHTML = data.data.map(story => `
+                        <div class="story-card">
+                            <div class="story-image">
+                                <img src="${story.featuredImage || 'assets/images/default-story.jpg'}" alt="${story.title}">
+                            </div>
+                            <div class="story-content">
+                                <h3>${story.title}</h3>
+                                <p class="story-excerpt">${story.content.substring(0, 100)}...</p>
+                                <div class="story-meta">
+                                    <span><i class="fas fa-user"></i> ${story.author.firstName} ${story.author.lastName}</span>
+                                    <span><i class="fas fa-heart"></i> ${story.likes?.length || 0} likes</span>
+                                </div>
+                                <a href="pages/success-stories.html?id=${story._id}" class="btn btn-small">Read Story</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading stories:', error);
+            }
+        }
+    </script>
+</body>
+</html>

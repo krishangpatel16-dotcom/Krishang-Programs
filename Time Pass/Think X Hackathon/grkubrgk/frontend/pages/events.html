@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Alumni Network</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Calendar CSS (optional) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Events</h1>
+                        <p class="text-gray-600 mt-2">Connect, learn, and network with fellow alumni</p>
+                    </div>
+                    <button id="createEventBtn" class="btn btn-primary" data-auth>
+                        <i class="fas fa-calendar-plus mr-2"></i>
+                        Create Event
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-8">
+            <!-- Event Statistics -->
+            <div class="mb-8">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="upcomingEvents">0</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pastEvents">0</div>
+                        <div class="stat-label">Past Events</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalAttendees">0</div>
+                        <div class="stat-label">Total Attendees</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="cities">0</div>
+                        <div class="stat-label">Cities</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar View Toggle -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-2">
+                        <button id="listViewBtn" class="btn btn-secondary btn-sm active">
+                            <i class="fas fa-list mr-2"></i> List View
+                        </button>
+                        <button id="calendarViewBtn" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-calendar mr-2"></i> Calendar View
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button id="exportCalendarBtn" class="btn btn-outline btn-sm">
+                            <i class="fas fa-download mr-2"></i> Export Calendar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List View -->
+            <div id="listView" class="mb-8">
+                <!-- Filter Events -->
+                <div class="mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <select id="eventTypeFilter" class="form-control">
+                            <option value="">All Event Types</option>
+                            <option value="networking">Networking</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="conference">Conference</option>
+                            <option value="social">Social</option>
+                            <option value="career">Career Fair</option>
+                            <option value="webinar">Webinar</option>
+                        </select>
+                        
+                        <select id="eventLocationFilter" class="form-control">
+                            <option value="">All Locations</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="new-york">New York</option>
+                            <option value="san-francisco">San Francisco</option>
+                            <option value="london">London</option>
+                            <option value="bangalore">Bangalore</option>
+                        </select>
+                        
+                        <input type="date" id="eventDateFilter" class="form-control" placeholder="Select Date">
+                        
+                        <button id="clearEventFilters" class="btn btn-secondary">
+                            <i class="fas fa-times mr-2"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Upcoming Events</h2>
+                        <div class="text-sm text-gray-600" id="upcomingCount">
+                            0 events
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="eventsLoading" class="text-center py-12">
+                        <div class="spinner mx-auto"></div>
+                        <p class="text-gray-600 mt-4">Loading events...</p>
+                    </div>
+
+                    <!-- Events Grid -->
+                    <div id="upcomingEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style="display: none;">
+                        <!-- Event cards will be dynamically inserted here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="eventsEmpty" class="text-center py-12 hidden">
+                        <i class="fas fa-calendar-times text-gray-300 text-6xl mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">No upcoming events</h3>
+                        <p class="text-gray-600">Check back later or create your own event!</p>
+                    </div>
+                </div>
+
+                <!-- Past Events (Collapsible) -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Past Events</h2>
+                        <button id="togglePastEvents" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-chevron-down mr-2"></i> Show
+                        </button>
+                    </div>
+
+                    <div id="pastEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                        <!-- Past event cards will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar View -->
+            <div id="calendarView" class="mb-8 hidden">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Events -->
+            <div class="mb-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-semibold">Featured Events</h3>
+                                <p class="text-sm text-gray-600">Don't miss these important events</p>
+                            </div>
+                            <button id="refreshFeaturedEvents" class="btn btn-outline btn-sm">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="featuredEvents" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Featured event cards will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Categories -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-6">Browse by Category</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <a href="#" class="category-card" data-category="networking">
+                        <div class="p-4 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition-colors">
+                            <i class="fas fa-users text-blue-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Networking</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="workshop">
+                        <div class="p-4 bg-green-50 rounded-lg text-center hover:bg-green-100 transition-colors">
+                            <i class="fas fa-chalkboard-teacher text-green-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Workshops</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="conference">
+                        <div class="p-4 bg-purple-50 rounded-lg text-center hover:bg-purple-100 transition-colors">
+                            <i class="fas fa-microphone text-purple-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Conferences</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="social">
+                        <div class="p-4 bg-yellow-50 rounded-lg text-center hover:bg-yellow-100 transition-colors">
+                            <i class="fas fa-glass-cheers text-yellow-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Social</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="career">
+                        <div class="p-4 bg-red-50 rounded-lg text-center hover:bg-red-100 transition-colors">
+                            <i class="fas fa-briefcase text-red-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Career Fairs</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="webinar">
+                        <div class="p-4 bg-indigo-50 rounded-lg text-center hover:bg-indigo-100 transition-colors">
+                            <i class="fas fa-desktop text-indigo-600 text-2xl mb-2"></i>
+                            <p class="font-medium">Webinars</p>
+                            <p class="text-sm text-gray-600" data-count="0">0 events</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Event Hosting Tips -->
+            <div class="mb-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-semibold">Hosting an Event?</h3>
+                        <p class="text-sm text-gray-600">Tips for successful alumni events</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-bullhorn text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Promote Early</h4>
+                                    <p class="text-sm text-gray-600">Start promoting your event 3-4 weeks in advance for better attendance.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-tasks text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Clear Agenda</h4>
+                                    <p class="text-sm text-gray-600">Share a detailed agenda so attendees know what to expect.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-network-wired text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Facilitate Networking</h4>
+                                    <p class="text-sm text-gray-600">Include networking sessions and icebreakers to help people connect.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Event Modal -->
+    <div id="createEventModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold">Create New Event</h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createEventForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">Event Title *</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Event Type *</label>
+                            <select name="type" class="form-control" required>
+                                <option value="">Select Type</option>
+                                <option value="networking">Networking</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="conference">Conference</option>
+                                <option value="social">Social Event</option>
+                                <option value="career">Career Fair</option>
+                                <option value="webinar">Webinar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Start Date & Time *</label>
+                            <input type="datetime-local" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date & Time *</label>
+                            <input type="datetime-local" name="end_date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location Type *</label>
+                            <select name="location_type" class="form-control" required>
+                                <option value="in-person">In-Person</option>
+                                <option value="virtual">Virtual</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location/Virtual Link *</label>
+                            <input type="text" name="location" class="form-control" required placeholder="Physical address or Zoom link">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Maximum Attendees</label>
+                            <input type="number" name="max_attendees" class="form-control" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Registration Deadline</label>
+                            <input type="datetime-local" name="registration_deadline" class="form-control">
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Event Description *</label>
+                            <textarea name="description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Agenda/Schedule</label>
+                            <textarea name="agenda" class="form-control" rows="3" placeholder="List agenda items with times"></textarea>
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Event Image</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                            <p class="form-text">Recommended size: 1200x630px. Max 2MB.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check">
+                                <input type="checkbox" name="is_featured" class="form-check-input">
+                                <span class="form-check-label">Feature this event</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check">
+                                <input type="checkbox" name="is_public" class="form-check-input" checked>
+                                <span class="form-check-label">Public event</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" form="createEventForm" class="btn btn-primary">Create Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold" id="eventModalTitle"></h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="eventModalContent">
+                    <!-- Event details will be dynamically inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Close</button>
+                <button id="registerEventBtn" class="btn btn-primary">Register for Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="hidden fixed bottom-8 right-8 bg-primary-color text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/events.js"></script>
+    <script src="../script.js"></script>
+    
+    <script>
+        // Initialize events functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load events data
+            loadEvents();
+            
+            // Load statistics
+            loadEventStats();
+            
+            // Load event categories
+            loadEventCategories();
+            
+            // Setup event listeners
+            setupEventEventListeners();
+            
+            // Initialize calendar if needed
+            if (document.getElementById('calendar')) {
+                initEventCalendar();
+            }
+        });
+    </script>
+</body>
+</html>

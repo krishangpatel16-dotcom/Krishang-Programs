@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Alumni Connect</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="Alumni Connect Logo">
+                <span class="logo-text">Alumni Connect</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="register.html" class="active">Register</a>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Join Our Alumni Network</h1>
+                <p>Create your account in less than 2 minutes</p>
+            </div>
+            
+            <div class="auth-body">
+                <form id="registerForm" class="auth-form">
+                    <div id="alertContainer"></div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-control" required 
+                                   placeholder="Enter your first name">
+                            <div class="form-error" id="firstNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-control" required 
+                                   placeholder="Enter your last name">
+                            <div class="form-error" id="lastNameError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required 
+                               placeholder="Enter your email address">
+                        <div class="form-error" id="emailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="graduationYear" class="form-label">Graduation Year</label>
+                        <select id="graduationYear" name="graduationYear" class="form-control" required>
+                            <option value="">Select graduation year</option>
+                            <!-- Years will be populated by JavaScript -->
+                        </select>
+                        <div class="form-error" id="graduationYearError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department" class="form-label">Department</label>
+                        <select id="department" name="department" class="form-control" required>
+                            <option value="">Select your department</option>
+                            <option value="CSE">Computer Science & Engineering</option>
+                            <option value="ECE">Electronics & Communication Engineering</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CE">Civil Engineering</option>
+                            <option value="EE">Electrical Engineering</option>
+                            <option value="IT">Information Technology</option>
+                        </select>
+                        <div class="form-error" id="departmentError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" class="form-control" required 
+                                   placeholder="Create a strong password">
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-bar" id="strengthBar"></div>
+                            </div>
+                            <div class="strength-label" id="strengthLabel">Password strength</div>
+                        </div>
+                        <div class="form-error" id="passwordError"></div>
+                        <ul class="password-requirements">
+                            <li id="reqLength"><i class="fas fa-circle"></i> At least 8 characters</li>
+                            <li id="reqUppercase"><i class="fas fa-circle"></i> One uppercase letter</li>
+                            <li id="reqLowercase"><i class="fas fa-circle"></i> One lowercase letter</li>
+                            <li id="reqNumber"><i class="fas fa-circle"></i> One number</li>
+                            <li id="reqSpecial"><i class="fas fa-circle"></i> One special character</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required 
+                                   placeholder="Confirm your password">
+                            <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-error" id="confirmPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group form-check">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms" class="form-check-label">
+                            I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>
+                        </label>
+                        <div class="form-error" id="termsError"></div>
+                    </div>
+                    
+                    <div class="form-group form-check">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter" class="form-check-label">
+                            Subscribe to alumni newsletter and updates
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-loading hidden">
+                                <i class="fas fa-spinner fa-spin"></i> Creating account...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auth-side">
+            <div class="auth-side-content">
+                <h2>Why Join Alumni Connect?</h2>
+                <ul class="auth-features">
+                    <li><i class="fas fa-network-wired"></i> <strong>Network</strong> with successful alumni worldwide</li>
+                    <li><i class="fas fa-briefcase"></i> <strong>Career Opportunities</strong> from alumni companies</li>
+                    <li><i class="fas fa-graduation-cap"></i> <strong>Mentorship</strong> from experienced professionals</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Exclusive Events</strong> and reunions</li>
+                    <li><i class="fas fa-hand-holding-heart"></i> <strong>Give Back</strong> to your alma mater</li>
+                </ul>
+                
+                <div class="registration-stats">
+                    <div class="stat">
+                        <h3>10,000+</h3>
+                        <p>Alumni Members</p>
+                    </div>
+                    <div class="stat">
+                        <h3>500+</h3>
+                        <p>Job Postings</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Events Yearly</p>
+                    </div>
+                </div>
+                
+                <div class="auth-testimonial">
+                    <p>"This platform helped me reconnect with my batchmates and find amazing career opportunities!"</p>
+                    <div class="testimonial-author">
+                        <div class="avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div>
+                            <strong>Sarah Johnson</strong>
+                            <span>Class of 2012, Product Manager at Microsoft</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="../assets/images/logo.png" alt="Alumni Connect">
+                        <h3>Alumni Connect</h3>
+                    </div>
+                    <p class="footer-description">
+                        Government Engineering College's official alumni network platform.
+                        Connect, grow, and give back with fellow alumni.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="alumni-directory.html">Alumni Directory</a></li>
+                        <li><a href="job-portal.html">Job Portal</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Government Engineering College, City, State</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> alumni@gec.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Alumni Connect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate graduation years
+            const currentYear = new Date().getFullYear();
+            const graduationYearSelect = document.getElementById('graduationYear');
+            for (let year = 1950; year <= currentYear; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                graduationYearSelect.appendChild(option);
+            }
+            
+            // Set default to 5 years ago
+            graduationYearSelect.value = currentYear - 5;
+            
+            // Password toggle functionality
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            toggleConfirmPassword.addEventListener('click', function() {
+                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPasswordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            // Password strength checker
+            passwordInput.addEventListener('input', checkPasswordStrength);
+            
+            // Form submission
+            const registerForm = document.getElementById('registerForm');
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const graduationYear = document.getElementById('graduationYear').value;
+                const department = document.getElementById('department').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const terms = document.getElementById('terms').checked;
+                const newsletter = document.getElementById('newsletter').checked;
+                
+                // Clear previous errors
+                clearErrors();
+                
+                // Validate inputs
+                let isValid = true;
+                
+                // First name validation
+                if (!firstName) {
+                    showError('firstNameError', 'First name is required');
+                    isValid = false;
+                } else if (firstName.length < 2) {
+                    showError('firstNameError', 'First name must be at least 2 characters');
+                    isValid = false;
+                }
+                
+                // Last name validation
+                if (!lastName) {
+                    showError('lastNameError', 'Last name is required');
+                    isValid = false;
+                } else if (lastName.length < 2) {
+                    showError('lastNameError', 'Last name must be at least 2 characters');
+                    isValid = false;
+                }
+                
+                // Email validation
+                if (!email) {
+                    showError('emailError', 'Email is required');
+                    isValid = false;
+                } else if (!isValidEmail(email)) {
+                    showError('emailError', 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                // Graduation year validation
+                if (!graduationYear) {
+                    showError('graduationYearError', 'Graduation year is required');
+                    isValid = false;
+                }
+                
+                // Department validation
+                if (!department) {
+                    showError('departmentError', 'Department is required');
+                    isValid = false;
+                }
+                
+                // Password validation
+                if (!password) {
+                    showError('passwordError', 'Password is required');
+                    isValid = false;
+                } else if (!isStrongPassword(password)) {
+                    showError('passwordError', 'Password does not meet requirements');
+                    isValid = false;
+                }
+                
+                // Confirm password validation
+                if (!confirmPassword) {
+                    showError('confirmPasswordError', 'Please confirm your password');
+                    isValid = false;
+                } else if (password !== confirmPassword) {
+                    showError('confirmPasswordError', 'Passwords do not match');
+                    isValid = false;
+                }
+                
+                // Terms validation
+                if (!terms) {
+                    showError('termsError', 'You must agree to the terms and conditions');
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Show loading state
+                const registerBtn = document.getElementById('registerBtn');
+                registerBtn.classList.add('loading');
+                
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            firstName,
+                            lastName,
+                            email,
+                            graduationYear: parseInt(graduationYear),
+                            department,
+                            password,
+                            newsletter
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Store token and user data
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        
+                        // Show success message
+                        showAlert('success', data.message || 'Registration successful! Please check your email for verification.');
+                        
+                        // Redirect to verification page
+                        setTimeout(() => {
+                            window.location.href = 'verify-email.html';
+                        }, 2000);
+                    } else {
+                        showAlert('error', data.message || 'Registration failed. Please try again.');
+                    }
+                } catch (error) {
+                    showAlert('error', 'Network error. Please try again later.');
+                } finally {
+                    registerBtn.classList.remove('loading');
+                }
+            });
+            
+            function clearErrors() {
+                const errorElements = document.querySelectorAll('.form-error');
+                errorElements.forEach(el => el.textContent = '');
+                
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = '';
+            }
+            
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+                element.textContent = message;
+            }
+            
+            function showAlert(type, message) {
+                const alertContainer = document.getElementById('alertContainer');
+                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+                
+                alertContainer.innerHTML = `
+                    <div class="alert ${alertClass}">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                        ${message}
+                    </div>
+                `;
+            }
+            
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            function isStrongPassword(password) {
+                const requirements = {
+                    length: password.length >= 8,
+                    uppercase: /[A-Z]/.test(password),
+                    lowercase: /[a-z]/.test(password),
+                    number: /\d/.test(password),
+                    special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+                };
+                
+                return Object.values(requirements).every(req => req);
+            }
+            
+            function checkPasswordStrength() {
+                const password = passwordInput.value;
+                const strengthBar = document.getElementById('strengthBar');
+                const strengthLabel = document.getElementById('strengthLabel');
+                
+                const requirements = {
+                    length: password.length >= 8,
+                    uppercase: /[A-Z]/.test(password),
+                    lowercase: /[a-z]/.test(password),
+                    number: /\d/.test(password),
+                    special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+                };
+                
+                // Update requirement indicators
+                document.getElementById('reqLength').className = requirements.length ? 'valid' : '';
+                document.getElementById('reqUppercase').className = requirements.uppercase ? 'valid' : '';
+                document.getElementById('reqLowercase').className = requirements.lowercase ? 'valid' : '';
+                document.getElementById('reqNumber').className = requirements.number ? 'valid' : '';
+                document.getElementById('reqSpecial').className = requirements.special ? 'valid' : '';
+                
+                // Calculate strength score
+                let score = 0;
+                Object.values(requirements).forEach(req => {
+                    if (req) score++;
+                });
+                
+                // Update strength bar
+                const width = (score / 5) * 100;
+                strengthBar.style.width = width + '%';
+                
+                // Update strength label
+                let label = 'Very weak';
+                let color = '#e74c3c';
+                
+                if (score === 1) {
+                    label = 'Weak';
+                    color = '#e67e22';
+                } else if (score === 2) {
+                    label = 'Fair';
+                    color = '#f1c40f';
+                } else if (score === 3) {
+                    label = 'Good';
+                    color = '#2ecc71';
+                } else if (score >= 4) {
+                    label = 'Strong';
+                    color = '#27ae60';
+                }
+                
+                strengthBar.style.backgroundColor = color;
+                strengthLabel.textContent = label;
+                strengthLabel.style.color = color;
+            }
+            
+            // Check if user is already logged in
+            const token = localStorage.getItem('token');
+            if (token) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

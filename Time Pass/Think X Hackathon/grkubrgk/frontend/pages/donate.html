@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate | Alumni Network</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stripe Integration (optional) -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="text-4xl md:text-5xl font-bold">Support Your Alma Mater</h1>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                        Your donation helps fund scholarships, campus improvements, and student programs. 
+                        Join fellow alumni in making a difference.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-12">
+            <!-- Donation Statistics -->
+            <div class="mb-12">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalDonations">$0</div>
+                        <div class="stat-label">Total Raised</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalDonors">0</div>
+                        <div class="stat-label">Total Donors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="recentDonations">$0</div>
+                        <div class="stat-label">This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="goalProgress">0%</div>
+                        <div class="stat-label">Annual Goal</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column: Donation Options -->
+                <div class="lg:col-span-2">
+                    <!-- Impact Areas -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6">Choose Your Impact Area</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="impact-card card" data-impact="scholarship">
+                                <div class="card-body">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                        <i class="fas fa-graduation-cap text-blue-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-lg mb-2">Student Scholarships</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Provide financial assistance to deserving students who need support to complete their education.
+                                    </p>
+                                    <div class="text-sm">
+                                        <span class="font-semibold">$150,000 raised</span>
+                                        <span class="text-gray-500 ml-2">of $500,000 goal</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-600 h-2 rounded-full" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-card card" data-impact="campus">
+                                <div class="card-body">
+                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                        <i class="fas fa-university text-green-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-lg mb-2">Campus Improvements</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Fund modern facilities, technology upgrades, and sustainability initiatives on campus.
+                                    </p>
+                                    <div class="text-sm">
+                                        <span class="font-semibold">$85,000 raised</span>
+                                        <span class="text-gray-500 ml-2">of $300,000 goal</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 28%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-card card" data-impact="research">
+                                <div class="card-body">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                        <i class="fas fa-flask text-purple-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-lg mb-2">Research & Innovation</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Support groundbreaking research projects and innovation labs for students and faculty.
+                                    </p>
+                                    <div class="text-sm">
+                                        <span class="font-semibold">$220,000 raised</span>
+                                        <span class="text-gray-500 ml-2">of $750,000 goal</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-purple-600 h-2 rounded-full" style="width: 29%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-card card" data-impact="athletics">
+                                <div class="card-body">
+                                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                                        <i class="fas fa-running text-red-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-lg mb-2">Athletics & Wellness</h3>
+                                    <p class="text-gray-600 mb-4">
+                                        Enhance sports facilities, equipment, and wellness programs for student athletes.
+                                    </p>
+                                    <div class="text-sm">
+                                        <span class="font-semibold">$45,000 raised</span>
+                                        <span class="text-gray-500 ml-2">of $200,000 goal</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-red-600 h-2 rounded-full" style="width: 22%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Donation Amounts -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-4">Quick Donate</h2>
+                        <p class="text-gray-600 mb-6">Select a preset amount or enter your own</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                            <button class="quick-amount-btn btn btn-outline py-4 text-lg" data-amount="25">
+                                $25
+                            </button>
+                            <button class="quick-amount-btn btn btn-outline py-4 text-lg" data-amount="50">
+                                $50
+                            </button>
+                            <button class="quick-amount-btn btn btn-outline py-4 text-lg" data-amount="100">
+                                $100
+                            </button>
+                            <button class="quick-amount-btn btn btn-outline py-4 text-lg" data-amount="250">
+                                $250
+                            </button>
+                            <button class="quick-amount-btn btn btn-outline py-4 text-lg" data-amount="500">
+                                $500
+                            </button>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="absolute left-3 top-3 text-gray-500">$</div>
+                            <input 
+                                type="number" 
+                                id="customAmount" 
+                                placeholder="Enter custom amount"
+                                class="form-control pl-8 text-lg py-3"
+                                min="1"
+                                step="1"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Donation Form -->
+                    <div class="card mb-8">
+                        <div class="card-header">
+                            <h3 class="text-lg font-semibold">Make Your Donation</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="donationForm">
+                                <div class="mb-6">
+                                    <h4 class="font-semibold mb-4">Personal Information</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="form-group">
+                                            <label class="form-label">First Name *</label>
+                                            <input type="text" name="first_name" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Last Name *</label>
+                                            <input type="text" name="last_name" class="form-control" required>
+                                        </div>
+                                        <div class="form-group md:col-span-2">
+                                            <label class="form-label">Email Address *</label>
+                                            <input type="email" name="email" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Graduation Year</label>
+                                            <input type="number" name="graduation_year" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="tel" name="phone" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-6">
+                                    <h4 class="font-semibold mb-4">Donation Details</h4>
+                                    <div class="space-y-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Donation Amount *</label>
+                                            <div class="relative">
+                                                <div class="absolute left-3 top-3 text-gray-500">$</div>
+                                                <input 
+                                                    type="number" 
+                                                    name="amount" 
+                                                    id="donationAmount"
+                                                    class="form-control pl-8 text-lg"
+                                                    min="1"
+                                                    step="0.01"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Impact Area</label>
+                                            <select name="impact_area" class="form-control" required>
+                                                <option value="">Choose where your donation goes</option>
+                                                <option value="scholarship">Student Scholarships</option>
+                                                <option value="campus">Campus Improvements</option>
+                                                <option value="research">Research & Innovation</option>
+                                                <option value="athletics">Athletics & Wellness</option>
+                                                <option value="general">General Fund (Where needed most)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-check">
+                                                <input type="checkbox" name="is_recurring" class="form-check-input">
+                                                <span class="form-check-label">Make this a monthly recurring donation</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-group" id="recurringOptions" style="display: none;">
+                                            <label class="form-label">Recurring Duration</label>
+                                            <select name="recurring_duration" class="form-control">
+                                                <option value="3">3 months</option>
+                                                <option value="6">6 months</option>
+                                                <option value="12">12 months</option>
+                                                <option value="indefinite">Until cancelled</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Dedication (Optional)</label>
+                                            <textarea 
+                                                name="dedication" 
+                                                class="form-control" 
+                                                rows="2"
+                                                placeholder="In honor/memory of someone special"
+                                            ></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-check">
+                                                <input type="checkbox" name="anonymous" class="form-check-input">
+                                                <span class="form-check-label">Make this donation anonymous</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-6">
+                                    <h4 class="font-semibold mb-4">Payment Information</h4>
+                                    <div id="payment-element">
+                                        <!-- Stripe Payment Element will be inserted here -->
+                                    </div>
+                                    <div id="card-errors" class="form-error"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-check">
+                                        <input type="checkbox" name="terms" class="form-check-input" required>
+                                        <span class="form-check-label">
+                                            I agree to the <a href="#" class="text-primary hover:underline">Terms & Conditions</a> and 
+                                            understand that donations are non-refundable.
+                                        </span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold">Total Amount:</p>
+                                    <p class="text-2xl font-bold text-primary" id="totalAmount">$0.00</p>
+                                </div>
+                                <button type="submit" form="donationForm" id="submitDonation" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    Donate Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Recent Donors -->
+                    <div class="card mb-8">
+                        <div class="card-header">
+                            <h3 class="font-semibold">Recent Donors</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="recentDonors" class="space-y-4">
+                                <!-- Recent donors will be dynamically inserted here -->
+                            </div>
+                            <div class="text-center mt-4">
+                                <button id="loadMoreDonors" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-redo mr-2"></i>
+                                    Load More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Information -->
+                    <div class="card mb-8">
+                        <div class="card-body">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-file-invoice-dollar text-blue-600"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Tax Receipts</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                All donations are tax-deductible. You will receive a receipt via email for your records.
+                            </p>
+                            <button class="btn btn-outline btn-sm w-full">
+                                <i class="fas fa-download mr-2"></i>
+                                Download Tax Info
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Matching Gifts -->
+                    <div class="card mb-8">
+                        <div class="card-body">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-handshake text-green-600"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Matching Gifts</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Many employers match charitable donations. Check if your company has a matching gift program.
+                            </p>
+                            <button class="btn btn-outline btn-sm w-full" id="checkMatching">
+                                <i class="fas fa-search mr-2"></i>
+                                Check Eligibility
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FAQ -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="font-semibold">FAQ</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-1">How is my donation used?</h4>
+                                    <p class="text-xs text-gray-600">
+                                        90% goes directly to programs, 10% covers administrative costs.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-1">Can I donate anonymously?</h4>
+                                    <p class="text-xs text-gray-600">
+                                        Yes, select the anonymous option during checkout.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-1">How do I cancel recurring donations?</h4>
+                                    <p class="text-xs text-gray-600">
+                                        Email donations@alumni.edu or manage in your account dashboard.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation Impact Stories -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">See Your Impact</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user-graduate text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">50+ Scholarships Funded</h3>
+                        <p class="text-gray-600">Your donations help students from diverse backgrounds achieve their dreams.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-laptop-code text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">New Computer Lab</h3>
+                        <p class="text-gray-600">Thanks to alumni support, students now have access to state-of-the-art technology.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-seedling text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Sustainable Campus</h3>
+                        <p class="text-gray-600">Your contributions support solar panels and green initiatives on campus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="donationSuccessModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-body text-center py-8">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Thank You for Your Donation!</h3>
+                <p class="text-gray-600 mb-6" id="donationSuccessMessage">
+                    Your contribution will make a real difference. You will receive a receipt via email shortly.
+                </p>
+                <div class="space-y-4">
+                    <button class="btn btn-primary w-full" data-modal-close>
+                        Return to Donation Page
+                    </button>
+                    <button id="shareDonation" class="btn btn-outline w-full">
+                        <i class="fas fa-share-alt mr-2"></i>
+                        Share Your Support
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="hidden fixed bottom-8 right-8 bg-primary-color text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/donations.js"></script>
+    <script src="../script.js"></script>
+    
+    <script>
+        // Initialize donation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load donation statistics
+            loadDonationStats();
+            
+            // Load recent donors
+            loadRecentDonors();
+            
+            // Initialize payment system
+            initPaymentSystem();
+            
+            // Setup event listeners
+            setupDonationEventListeners();
+            
+            // Update total amount display
+            updateTotalAmount();
+        });
+    </script>
+</body>
+</html>

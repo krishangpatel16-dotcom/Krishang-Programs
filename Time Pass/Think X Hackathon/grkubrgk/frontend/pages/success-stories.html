@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories | Alumni Network</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="hero" style="background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="text-4xl md:text-5xl font-bold">Success Stories</h1>
+                    <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                        Inspiring journeys of alumni who have made significant impacts in their fields, 
+                        overcome challenges, and give back to the community.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-12">
+            <!-- Statistics -->
+            <div class="mb-12">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalStories">0</div>
+                        <div class="stat-label">Success Stories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="featuredStories">0</div>
+                        <div class="stat-label">Featured Stories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="countriesStories">0</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="industriesStories">0</div>
+                        <div class="stat-label">Industries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="mb-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                            <!-- Search -->
+                            <div class="lg:col-span-2">
+                                <div class="relative">
+                                    <input 
+                                        type="text" 
+                                        id="storiesSearch" 
+                                        placeholder="Search stories by name, company, or keywords..."
+                                        class="form-control pl-10"
+                                    >
+                                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Filters -->
+                            <select id="industryFilter" class="form-control">
+                                <option value="">All Industries</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Entrepreneurship">Entrepreneurship</option>
+                                <option value="Non-Profit">Non-Profit</option>
+                            </select>
+                            
+                            <select id="graduationYearFilter" class="form-control">
+                                <option value="">All Graduation Years</option>
+                                <option value="2020-2024">2020-2024</option>
+                                <option value="2015-2019">2015-2019</option>
+                                <option value="2010-2014">2010-2014</option>
+                                <option value="2005-2009">2005-2009</option>
+                                <option value="2000-2004">2000-2004</option>
+                                <option value="1990-1999">1990s</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-between items-center">
+                            <button id="clearStoryFilters" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-times mr-1"></i> Clear Filters
+                            </button>
+                            <div class="text-sm text-gray-600" id="filterInfo">
+                                Showing all success stories
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Story of the Month -->
+            <div class="mb-12">
+                <div class="card overflow-hidden">
+                    <div class="card-header bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-xl font-semibold">Featured Story of the Month</h2>
+                                <p class="text-sm opacity-90">Inspiring alumni making waves in their industry</p>
+                            </div>
+                            <span class="badge bg-white text-purple-600">Featured</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="featuredStory">
+                            <!-- Featured story will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stories Grid -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">All Success Stories</h2>
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm text-gray-600" id="storiesCount">0 stories</span>
+                        <select id="sortStories" class="form-control form-control-sm">
+                            <option value="recent">Most Recent</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="alphabetical">Alphabetical</option>
+                            <option value="graduation">Graduation Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="storiesLoading" class="text-center py-12">
+                    <div class="spinner mx-auto"></div>
+                    <p class="text-gray-600 mt-4">Loading success stories...</p>
+                </div>
+
+                <!-- Stories Grid -->
+                <div id="storiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style="display: none;">
+                    <!-- Story cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="storiesEmpty" class="text-center py-12 hidden">
+                    <i class="fas fa-book-open text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">No success stories found</h3>
+                    <p class="text-gray-600">Try adjusting your search or filters</p>
+                </div>
+
+                <!-- Pagination -->
+                <div id="storiesPagination" class="flex justify-center mt-8 hidden">
+                    <nav class="flex items-center gap-2">
+                        <button class="btn btn-secondary btn-sm" id="prevStoryPage">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="px-4 py-2 text-sm text-gray-600" id="storyPageInfo">Page 1 of 1</span>
+                        <button class="btn btn-secondary btn-sm" id="nextStoryPage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">Browse by Category</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="#" class="category-card" data-category="entrepreneurship">
+                        <div class="p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg text-center hover:shadow-lg transition-all">
+                            <i class="fas fa-rocket text-blue-600 text-3xl mb-3"></i>
+                            <h3 class="font-semibold mb-1">Entrepreneurship</h3>
+                            <p class="text-sm text-gray-600">Startups and business ventures</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="leadership">
+                        <div class="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-lg text-center hover:shadow-lg transition-all">
+                            <i class="fas fa-crown text-green-600 text-3xl mb-3"></i>
+                            <h3 class="font-semibold mb-1">Leadership</h3>
+                            <p class="text-sm text-gray-600">Executive roles and management</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="innovation">
+                        <div class="p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg text-center hover:shadow-lg transition-all">
+                            <i class="fas fa-lightbulb text-purple-600 text-3xl mb-3"></i>
+                            <h3 class="font-semibold mb-1">Innovation</h3>
+                            <p class="text-sm text-gray-600">Breakthroughs and inventions</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="category-card" data-category="philanthropy">
+                        <div class="p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg text-center hover:shadow-lg transition-all">
+                            <i class="fas fa-hands-helping text-red-600 text-3xl mb-3"></i>
+                            <h3 class="font-semibold mb-1">Philanthropy</h3>
+                            <p class="text-sm text-gray-600">Giving back and social impact</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="mb-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-xl font-semibold">What Alumni Say</h2>
+                        <p class="text-sm text-gray-600">Hear from alumni about their experiences and achievements</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="testimonial-card">
+                                <div class="flex items-center mb-4">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" 
+                                         alt="Sarah Johnson" 
+                                         class="w-12 h-12 rounded-full mr-4">
+                                    <div>
+                                        <h4 class="font-semibold">Sarah Johnson</h4>
+                                        <p class="text-sm text-gray-600">Class of 2018 · Tech Entrepreneur</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "The alumni network was instrumental in connecting me with my first investors. 
+                                    The mentorship I received shaped my entrepreneurial journey."
+                                </p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <div class="flex items-center mb-4">
+                                    <img src="https://randomuser.me/api/portraits/men/54.jpg" 
+                                         alt="Michael Chen" 
+                                         class="w-12 h-12 rounded-full mr-4">
+                                    <div>
+                                        <h4 class="font-semibold">Michael Chen</h4>
+                                        <p class="text-sm text-gray-600">Class of 2015 · Research Scientist</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "Collaborations with fellow alumni have led to groundbreaking research. 
+                                    The connections made here continue to open doors in academia."
+                                </p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <div class="flex items-center mb-4">
+                                    <img src="https://randomuser.me/api/portraits/women/67.jpg" 
+                                         alt="Priya Sharma" 
+                                         class="w-12 h-12 rounded-full mr-4">
+                                    <div>
+                                        <h4 class="font-semibold">Priya Sharma</h4>
+                                        <p class="text-sm text-gray-600">Class of 2020 · Social Entrepreneur</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 italic">
+                                    "The support from the alumni community helped scale our non-profit to impact 
+                                    thousands of lives. This network truly believes in paying it forward."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share Your Story CTA -->
+            <div class="mb-8">
+                <div class="card bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                    <div class="card-body text-center py-12">
+                        <i class="fas fa-pen-nib text-5xl mb-6 opacity-90"></i>
+                        <h2 class="text-3xl font-bold mb-4">Share Your Success Story</h2>
+                        <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+                            Inspire others by sharing your journey. Your story could motivate the next generation of alumni.
+                        </p>
+                        <button id="shareStoryBtn" class="btn btn-lg bg-white text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-plus mr-2"></i>
+                            Share Your Story
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestones Timeline -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-center">Alumni Milestones Timeline</h2>
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                                    <h3 class="font-semibold text-lg">2023 - Tech IPO Success</h3>
+                                    <p class="text-gray-600">Alumni-founded company reaches $1B valuation</p>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <div class="md:w-1/2 md:pl-12">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                                        <p>Sarah Thompson's AI startup went public, creating opportunities for fellow alumni.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                                        <p>Dr. James Wilson received the Nobel Prize for his medical research.</p>
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <div class="md:w-1/2 md:pl-12">
+                                    <h3 class="font-semibold text-lg">2022 - Nobel Prize Winner</h3>
+                                    <p class="text-gray-600">Alumni recognized for groundbreaking research</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                                    <h3 class="font-semibold text-lg">2021 - Global Humanitarian Award</h3>
+                                    <p class="text-gray-600">Alumni recognized for social impact work</p>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <div class="md:w-1/2 md:pl-12">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                                        <p>Maria Rodriguez's foundation provided clean water to 100,000 people.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Share Story Modal -->
+    <div id="shareStoryModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold">Share Your Success Story</h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="shareStoryForm">
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-4">Your Story</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label">Title *</label>
+                                <input type="text" name="title" class="form-control" placeholder="e.g., From Student to CEO" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Category *</label>
+                                <select name="category" class="form-control" required>
+                                    <option value="">Select Category</option>
+                                    <option value="entrepreneurship">Entrepreneurship</option>
+                                    <option value="leadership">Leadership</option>
+                                    <option value="innovation">Innovation</option>
+                                    <option value="philanthropy">Philanthropy</option>
+                                    <option value="career">Career Growth</option>
+                                    <option value="research">Research</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Your Name *</label>
+                                <input type="text" name="author_name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Graduation Year *</label>
+                                <input type="number" name="graduation_year" class="form-control" min="1900" max="2099" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Current Position</label>
+                                <input type="text" name="position" class="form-control" placeholder="e.g., CEO, Senior Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company/Organization</label>
+                                <input type="text" name="company" class="form-control">
+                            </div>
+                            <div class="form-group md:col-span-2">
+                                <label class="form-label">Industry</label>
+                                <select name="industry" class="form-control">
+                                    <option value="">Select Industry</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Non-Profit">Non-Profit</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-4">Your Journey</h4>
+                        <div class="space-y-4">
+                            <div class="form-group">
+                                <label class="form-label">Story Summary *</label>
+                                <textarea name="summary" class="form-control" rows="3" placeholder="Brief overview of your success story" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Full Story *</label>
+                                <textarea name="content" class="form-control" rows="6" placeholder="Tell us about your journey, challenges, achievements, and lessons learned" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Key Achievements</label>
+                                <textarea name="achievements" class="form-control" rows="3" placeholder="List your major accomplishments"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Challenges Overcome</label>
+                                <textarea name="challenges" class="form-control" rows="3" placeholder="Describe obstacles you faced and how you overcame them"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Advice for Current Students</label>
+                                <textarea name="advice" class="form-control" rows="3" placeholder="What wisdom would you share with current students?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-4">Media & Links</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label">Profile Photo</label>
+                                <input type="file" name="photo" class="form-control" accept="image/*">
+                                <p class="form-text">Recommended: Square image, at least 400x400px</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Featured Image</label>
+                                <input type="file" name="featured_image" class="form-control" accept="image/*">
+                                <p class="form-text">For story header, 1200x630px recommended</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">LinkedIn Profile</label>
+                                <input type="url" name="linkedin" class="form-control" placeholder="https://linkedin.com/in/username">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Website/Portfolio</label>
+                                <input type="url" name="website" class="form-control" placeholder="https://example.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" name="allow_contact" class="form-check-input">
+                            <span class="form-check-label">Allow other alumni to contact me for mentorship</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" name="featured_consent" class="form-check-input">
+                            <span class="form-check-label">I consent to having my story featured on the alumni website and social media</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" name="terms" class="form-check-input" required>
+                            <span class="form-check-label">
+                                I confirm that all information provided is accurate and I have the right to share this story
+                            </span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" form="shareStoryForm" class="btn btn-primary">Submit Story</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Details Modal -->
+    <div id="storyDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold" id="storyModalTitle"></h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="storyModalContent">
+                    <!-- Story details will be dynamically inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Close</button>
+                <button id="connectAlumniBtn" class="btn btn-primary">
+                    <i class="fas fa-handshake mr-2"></i>
+                    Connect
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="hidden fixed bottom-8 right-8 bg-primary-color text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/stories.js"></script>
+    <script src="../script.js"></script>
+    
+    <script>
+        // Initialize success stories functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load success stories
+            loadSuccessStories();
+            
+            // Load featured story
+            loadFeaturedStory();
+            
+            // Load statistics
+            loadStoryStats();
+            
+            // Setup event listeners
+            setupStoryEventListeners();
+        });
+    </script>
+</body>
+</html>

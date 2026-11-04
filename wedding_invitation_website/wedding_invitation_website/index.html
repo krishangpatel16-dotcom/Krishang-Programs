@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4efeb">
+  <title>With Love — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-note">A CELEBRATION OF LOVE <span>✦</span>  PLEASE JOIN US</div>
+  <header class="hero">
+    <div class="hero-wash"></div>
+    <nav class="nav">
+      <a class="brand" href="#home">A <span>&</span> R</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="#story">OUR STORY</a><a href="#details">THE DETAILS</a><a href="#rsvp">RSVP</a>
+      </div>
+    </nav>
+    <div class="hero-content" id="home">
+      <p class="eyebrow">TOGETHER WITH THEIR FAMILIES</p>
+      <h1>Alexandra <em>&</em> Ryan</h1>
+      <div class="flourish">❧</div>
+      <p class="hero-sub">INVITE YOU TO CELEBRATE THEIR WEDDING</p>
+      <p class="date">20 <span>·</span> JUNE <span>·</span> 2027</p>
+      <a class="outline-button" href="#invitation">OPEN THE INVITATION <span>↓</span></a>
+    </div>
+    <div class="hero-bottom">SCROLL TO DISCOVER <span>↓</span></div>
+  </header>
+
+  <main>
+    <section class="intro section" id="invitation">
+      <p class="eyebrow">A NOTE FROM THE HEART</p>
+      <h2>Two hearts, one beautiful<br><i>beginning.</i></h2>
+      <div class="thin-line">✦</div>
+      <p class="body-copy">With joyful hearts and the love of our families, we invite you to share in the beginning of our forever. Your presence will make our day even more special.</p>
+      <p class="script">With love, Alexandra & Ryan</p>
+    </section>
+
+    <section class="couple section" id="story">
+      <div class="couple-photo photo-one" role="img" aria-label="Romantic couple portrait"></div>
+      <div class="couple-copy">
+        <p class="eyebrow">THE BEGINNING OF FOREVER</p>
+        <h2>Our little<br><i>love story</i></h2>
+        <p>Some stories are written in the stars. Ours began with a simple hello, grew through countless memories, and led us to this beautiful moment.</p>
+        <p>Now, we can't wait to celebrate the next chapter with the people who mean the most to us.</p>
+        <span class="script">A & R</span>
+      </div>
+    </section>
+
+    <section class="details section" id="details">
+      <p class="eyebrow">SAVE THE DATE</p>
+      <h2>The wedding <i>celebration</i></h2>
+      <div class="date-card">
+        <div class="date-top">SUNDAY</div>
+        <div class="date-number">20</div>
+        <div class="date-month">JUNE <span>2027</span></div>
+        <div class="date-bottom">WITH LOVE, ALWAYS</div>
+      </div>
+      <div class="events">
+        <article><span class="event-icon">✧</span><h3>The Ceremony</h3><p>4:00 in the afternoon</p><p class="muted">The Garden Chapel</p></article>
+        <div class="event-divider"></div>
+        <article><span class="event-icon">❀</span><h3>The Reception</h3><p>6:00 in the evening</p><p class="muted">The Grand Oak Estate</p></article>
+      </div>
+      <a class="text-link" target="_blank" rel="noreferrer" href="https://maps.google.com/?q=The+Grand+Oak+Estate">VIEW LOCATION ↗</a>
+    </section>
+
+    <section class="quote section">
+      <div class="quote-mark">“</div>
+      <blockquote>Whatever our souls are made of,<br>his and mine are the same.</blockquote>
+      <p>— EMILY BRONTË</p>
+    </section>
+
+    <section class="rsvp section" id="rsvp">
+      <p class="eyebrow">WE HOPE YOU CAN JOIN US</p>
+      <h2>Kindly <i>reply</i></h2>
+      <p class="body-copy">Please let us know if you'll be celebrating with us by June 1st, 2027.</p>
+      <form id="rsvp-form">
+        <label>Your name<input name="name" type="text" placeholder="Full name" required></label>
+        <label>Your email<input name="email" type="email" placeholder="you@example.com" required></label>
+        <label>Will you attend?
+          <select name="attendance" required><option value="">Please choose</option><option>Joyfully accepts</option><option>Regretfully declines</option></select>
+        </label>
+        <label>Message for the couple <textarea name="message" rows="3" placeholder="Leave us a little note (optional)"></textarea></label>
+        <button class="solid-button" type="submit">SEND RSVP <span>→</span></button>
+        <p class="form-note">Demo form: it will show your response on this page. Connect a form service to receive submissions.</p>
+      </form>
+      <div id="form-message" role="status"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-monogram">A <span>&</span> R</div>
+    <p>WE CAN'T WAIT TO CELEBRATE WITH YOU</p>
+    <div class="footer-flourish">❧</div>
+    <small>MADE WITH LOVE · JUNE 20, 2027</small>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

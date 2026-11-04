@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Alumni Network</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Edit Profile</h1>
+                        <p class="text-gray-600 mt-2">Update your personal information and professional details</p>
+                    </div>
+                    <a href="dashboard.html" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="card sticky top-24">
+                        <div class="card-body">
+                            <div class="flex flex-col items-center text-center p-6">
+                                <div class="relative mb-4 group">
+                                    <img src="https://via.placeholder.com/150" alt="Profile Picture"
+                                        class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                                        id="profilePreview">
+                                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                                        onclick="document.getElementById('avatarInput').click()">
+                                        <i class="fas fa-camera text-white text-2xl"></i>
+                                    </div>
+                                    <input type="file" id="avatarInput" class="hidden" accept="image/*">
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900" id="sidebarName">Alumni User</h3>
+                                <p class="text-gray-600" id="sidebarRole">Software Engineer</p>
+                            </div>
+
+                            <hr class="border-gray-200 my-4">
+
+                            <nav class="space-y-1">
+                                <a href="#personal"
+                                    class="flex items-center px-4 py-2 text-primary-color bg-blue-50 rounded-md font-medium">
+                                    <i class="fas fa-user w-6"></i> Personal Info
+                                </a>
+                                <a href="#education"
+                                    class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md font-medium">
+                                    <i class="fas fa-graduation-cap w-6"></i> Education
+                                </a>
+                                <a href="#professional"
+                                    class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md font-medium">
+                                    <i class="fas fa-briefcase w-6"></i> Professional
+                                </a>
+                                <a href="#social"
+                                    class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md font-medium">
+                                    <i class="fas fa-share-alt w-6"></i> Social Links
+                                </a>
+                                <a href="#account"
+                                    class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md font-medium">
+                                    <i class="fas fa-cog w-6"></i> Account Settings
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Form -->
+                <div class="lg:col-span-2">
+                    <form id="profileForm">
+                        <!-- Personal Info -->
+                        <div id="personal" class="card mb-8">
+                            <div class="card-header border-b border-gray-200 p-6">
+                                <h2 class="text-xl font-bold text-gray-900">Personal Information</h2>
+                            </div>
+                            <div class="card-body p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" name="firstName" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" name="lastName" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" name="email" class="form-control" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" name="phone" class="form-control">
+                                    </div>
+                                    <div class="form-group md:col-span-2">
+                                        <label class="form-label">Bio (Short Description)</label>
+                                        <textarea name="bio" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education -->
+                        <div id="education" class="card mb-8">
+                            <div class="card-header border-b border-gray-200 p-6">
+                                <h2 class="text-xl font-bold text-gray-900">Education Details</h2>
+                            </div>
+                            <div class="card-body p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Graduation Year</label>
+                                        <input type="number" name="graduationYear" class="form-control" min="1950"
+                                            max="2024">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Degree</label>
+                                        <select name="degree" class="form-control">
+                                            <option value="">Select Degree</option>
+                                            <option value="B.Tech">B.Tech</option>
+                                            <option value="M.Tech">M.Tech</option>
+                                            <option value="Ph.D">Ph.D</option>
+                                            <option value="MBA">MBA</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group md:col-span-2">
+                                        <label class="form-label">Department</label>
+                                        <input type="text" name="department" class="form-control"
+                                            placeholder="e.g., Computer Science Engineering">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional -->
+                        <div id="professional" class="card mb-8">
+                            <div class="card-header border-b border-gray-200 p-6">
+                                <h2 class="text-xl font-bold text-gray-900">Professional Details</h2>
+                            </div>
+                            <div class="card-body p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Current Company</label>
+                                        <input type="text" name="company" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Job Title</label>
+                                        <input type="text" name="jobTitle" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Industry</label>
+                                        <select name="industry" class="form-control">
+                                            <option value="">Select Industry</option>
+                                            <option value="Technology">Technology</option>
+                                            <option value="Finance">Finance</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="Education">Education</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Experience (Years)</label>
+                                        <input type="number" name="experience" class="form-control" min="0">
+                                    </div>
+                                    <div class="form-group md:col-span-2">
+                                        <label class="form-label">Skills (Comma separated)</label>
+                                        <input type="text" name="skills" class="form-control"
+                                            placeholder="Java, Python, Leadership">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div id="social" class="card mb-8">
+                            <div class="card-header border-b border-gray-200 p-6">
+                                <h2 class="text-xl font-bold text-gray-900">Social Links</h2>
+                            </div>
+                            <div class="card-body p-6">
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="form-group">
+                                        <label class="form-label"><i class="fab fa-linkedin text-blue-600 mr-2"></i>
+                                            LinkedIn URL</label>
+                                        <input type="url" name="linkedin" class="form-control"
+                                            placeholder="https://linkedin.com/in/username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><i class="fab fa-github text-gray-800 mr-2"></i>
+                                            GitHub URL</label>
+                                        <input type="url" name="github" class="form-control"
+                                            placeholder="https://github.com/username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><i class="fab fa-twitter text-blue-400 mr-2"></i>
+                                            Twitter URL</label>
+                                        <input type="url" name="twitter" class="form-control"
+                                            placeholder="https://twitter.com/username">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div
+                            class="flex justify-end gap-4 sticky bottom-4 bg-white p-4 rounded-lg shadow-lg border border-gray-200 z-10">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="window.history.back()">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+                                <i class="fas fa-save mr-2"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/profile.js"></script>
+    <script src="../script.js"></script>
+</body>
+
+</html>

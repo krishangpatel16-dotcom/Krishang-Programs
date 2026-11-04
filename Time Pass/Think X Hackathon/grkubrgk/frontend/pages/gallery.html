@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Alumni Network</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="text-center md:text-left">
+                    <h1 class="text-3xl font-bold text-gray-900">Alumni Memories</h1>
+                    <p class="text-gray-600 mt-2">Relive the best moments from our events and reunions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-8">
+            <!-- Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="btn btn-primary filter-btn active" data-filter="all">All Photos</button>
+                <button class="btn btn-outline filter-btn" data-filter="reunion">Reunions</button>
+                <button class="btn btn-outline filter-btn" data-filter="campus">Campus Life</button>
+                <button class="btn btn-outline filter-btn" data-filter="convocation">Convocation</button>
+                <button class="btn btn-outline filter-btn" data-filter="sports">Sports</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+                <!-- Gallery items will be dynamically inserted here -->
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-8">
+                <button id="loadMoreBtn" class="btn btn-secondary">
+                    <i class="fas fa-spinner fa-spin hidden mr-2"></i> Load More
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center">
+        <button id="lightboxClose"
+            class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 focus:outline-none">&times;</button>
+        <button id="lightboxPrev"
+            class="absolute left-4 text-white text-4xl hover:text-gray-300 focus:outline-none hidden md:block"><i
+                class="fas fa-chevron-left"></i></button>
+        <button id="lightboxNext"
+            class="absolute right-4 text-white text-4xl hover:text-gray-300 focus:outline-none hidden md:block"><i
+                class="fas fa-chevron-right"></i></button>
+
+        <div class="max-w-4xl max-h-screen p-4">
+            <img id="lightboxImage" src="" alt="Gallery Image"
+                class="max-w-full max-h-[85vh] object-contain mx-auto rounded-lg shadow-2xl">
+            <div class="text-center mt-4">
+                <h3 id="lightboxTitle" class="text-white text-xl font-semibold"></h3>
+                <p id="lightboxDate" class="text-gray-400 text-sm"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script src="../script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal | Alumni Network</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <div data-component="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gray-50">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Job Portal</h1>
+                        <p class="text-gray-600 mt-2">Find opportunities posted by alumni and companies</p>
+                    </div>
+                    <button id="postJobBtn" class="btn btn-primary" data-auth>
+                        <i class="fas fa-plus mr-2"></i>
+                        Post a Job
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="container py-8">
+            <!-- Job Statistics -->
+            <div class="mb-8">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalJobs">0</div>
+                        <div class="stat-label">Total Jobs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="remoteJobs">0</div>
+                        <div class="stat-label">Remote Jobs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="newJobs">0</div>
+                        <div class="stat-label">New This Week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="applications">0</div>
+                        <div class="stat-label">Total Applications</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="mb-8">
+                <div class="job-filters">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <!-- Job Search -->
+                        <div class="lg:col-span-2">
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="jobSearch" 
+                                    placeholder="Search jobs by title, company, or keywords..."
+                                    class="form-control pl-10"
+                                >
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Filters -->
+                        <div class="flex gap-2">
+                            <button class="btn btn-outline btn-sm flex-1" data-filter="remote">
+                                <i class="fas fa-home mr-1"></i> Remote
+                            </button>
+                            <button class="btn btn-outline btn-sm flex-1" data-filter="fulltime">
+                                <i class="fas fa-briefcase mr-1"></i> Full-time
+                            </button>
+                            <button class="btn btn-outline btn-sm flex-1" data-filter="internship">
+                                <i class="fas fa-graduation-cap mr-1"></i> Internship
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Filters -->
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <select id="jobTypeFilter" class="form-control">
+                            <option value="">All Job Types</option>
+                            <option value="full-time">Full Time</option>
+                            <option value="part-time">Part Time</option>
+                            <option value="contract">Contract</option>
+                            <option value="internship">Internship</option>
+                            <option value="remote">Remote</option>
+                        </select>
+                        
+                        <select id="experienceFilter" class="form-control">
+                            <option value="">Experience Level</option>
+                            <option value="entry">Entry Level</option>
+                            <option value="mid">Mid Level</option>
+                            <option value="senior">Senior Level</option>
+                            <option value="executive">Executive</option>
+                        </select>
+                        
+                        <select id="industryFilter" class="form-control">
+                            <option value="">All Industries</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Marketing">Marketing</option>
+                        </select>
+                        
+                        <select id="locationFilter" class="form-control">
+                            <option value="">All Locations</option>
+                            <option value="Remote">Remote</option>
+                            <option value="New York">New York</option>
+                            <option value="San Francisco">San Francisco</option>
+                            <option value="London">London</option>
+                            <option value="Singapore">Singapore</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mt-4 flex justify-between items-center">
+                        <button id="clearJobFilters" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-times mr-1"></i> Clear Filters
+                        </button>
+                        <div class="text-sm text-gray-600" id="filterInfo">
+                            Showing all jobs
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobs List -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold">Available Jobs</h2>
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm text-gray-600" id="jobsCount">0 jobs found</span>
+                        <select id="sortJobs" class="form-control form-control-sm">
+                            <option value="recent">Most Recent</option>
+                            <option value="salary">Highest Salary</option>
+                            <option value="deadline">Application Deadline</option>
+                            <option value="company">Company Name</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="jobsLoading" class="text-center py-12">
+                    <div class="spinner mx-auto"></div>
+                    <p class="text-gray-600 mt-4">Loading jobs...</p>
+                </div>
+
+                <!-- Jobs List -->
+                <div id="jobsList" class="space-y-4" style="display: none;">
+                    <!-- Job cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="jobsEmpty" class="text-center py-12 hidden">
+                    <i class="fas fa-briefcase text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">No jobs found</h3>
+                    <p class="text-gray-600 mb-4">Try adjusting your search or filters</p>
+                    <button id="resetJobSearch" class="btn btn-primary">Reset Search</button>
+                </div>
+
+                <!-- Pagination -->
+                <div id="jobPagination" class="flex justify-center mt-8 hidden">
+                    <nav class="flex items-center gap-2">
+                        <button class="btn btn-secondary btn-sm" id="prevJobPage">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="px-4 py-2 text-sm text-gray-600" id="jobPageInfo">Page 1 of 1</span>
+                        <button class="btn btn-secondary btn-sm" id="nextJobPage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Featured Companies -->
+            <div class="mb-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-semibold">Featured Companies Hiring</h3>
+                        <p class="text-sm text-gray-600">Top companies posting jobs for alumni</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="featuredCompanies" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <!-- Company logos will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Application Tips -->
+            <div class="mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold mb-2">Resume Tips</h4>
+                            <p class="text-gray-600 text-sm">Tailor your resume for each application. Highlight relevant experience and skills.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-handshake text-green-600 text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold mb-2">Network First</h4>
+                            <p class="text-gray-600 text-sm">Reach out to alumni at target companies for referrals and insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-comments text-purple-600 text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold mb-2">Interview Prep</h4>
+                            <p class="text-gray-600 text-sm">Practice common questions and research the company thoroughly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Post Job Modal -->
+    <div id="postJobModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold">Post a New Job</h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="postJobForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">Job Title *</label>
+                            <input type="text" name="title" class="form-control" placeholder="e.g., Senior Software Engineer" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Company Name *</label>
+                            <input type="text" name="company" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Job Type *</label>
+                            <select name="type" class="form-control" required>
+                                <option value="">Select Type</option>
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                                <option value="contract">Contract</option>
+                                <option value="internship">Internship</option>
+                                <option value="remote">Remote</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Experience Level</label>
+                            <select name="experience" class="form-control">
+                                <option value="">Select Level</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="mid">Mid Level</option>
+                                <option value="senior">Senior Level</option>
+                                <option value="executive">Executive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location *</label>
+                            <input type="text" name="location" class="form-control" placeholder="e.g., New York, NY or Remote" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Salary Range</label>
+                            <div class="flex gap-2">
+                                <input type="number" name="salary_min" class="form-control" placeholder="Min">
+                                <input type="number" name="salary_max" class="form-control" placeholder="Max">
+                                <select name="salary_currency" class="form-control" style="width: 100px;">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Job Description *</label>
+                            <textarea name="description" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Requirements *</label>
+                            <textarea name="requirements" class="form-control" rows="3" placeholder="List requirements (one per line)" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Application Deadline</label>
+                            <input type="date" name="deadline" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Application Link/Email *</label>
+                            <input type="text" name="apply_link" class="form-control" placeholder="URL or email address" required>
+                        </div>
+                        <div class="form-group md:col-span-2">
+                            <label class="form-label">Contact Email</label>
+                            <input type="email" name="contact_email" class="form-control">
+                            <p class="form-text">This email will be visible to applicants</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" form="postJobForm" class="btn btn-primary">Post Job</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div id="jobDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="text-lg font-semibold" id="jobModalTitle"></h3>
+                <button class="modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="jobModalContent">
+                    <!-- Job details will be dynamically inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-close>Close</button>
+                <button id="applyJobBtn" class="btn btn-primary">Apply Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-component="footer"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="hidden fixed bottom-8 right-8 bg-primary-color text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/jobs.js"></script>
+    <script src="../script.js"></script>
+    
+    <script>
+        // Initialize job portal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load jobs data
+            loadJobs();
+            
+            // Load statistics
+            loadJobStats();
+            
+            // Load featured companies
+            loadFeaturedCompanies();
+            
+            // Setup event listeners
+            setupJobEventListeners();
+        });
+    </script>
+</body>
+</html>

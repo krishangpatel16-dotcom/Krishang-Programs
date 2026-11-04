@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Alumni Network</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-primary-color text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-shield-alt text-2xl"></i>
+                <span class="text-xl font-bold font-heading">Admin Portal</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-2">
+                    <span>Admin User</span>
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                        class="w-8 h-8 rounded-full">
+                </div>
+                <a href="../index.html" class="text-white hover:text-gray-200">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex min-h-[calc(100vh-64px)]">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md hidden md:block">
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#overview"
+                            class="flex items-center p-3 text-secondary-color bg-blue-50 rounded-lg font-medium"
+                            data-tab="overview">
+                            <i class="fas fa-tachometer-alt w-6"></i> Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#users"
+                            class="flex items-center p-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+                            data-tab="users">
+                            <i class="fas fa-users w-6"></i> Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#jobs"
+                            class="flex items-center p-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+                            data-tab="jobs">
+                            <i class="fas fa-briefcase w-6"></i> Jobs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#events"
+                            class="flex items-center p-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+                            data-tab="events">
+                            <i class="fas fa-calendar-alt w-6"></i> Events
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#donations"
+                            class="flex items-center p-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+                            data-tab="donations">
+                            <i class="fas fa-hand-holding-heart w-6"></i> Donations
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Dashboard Overview</h2>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Alumni</p>
+                                <h3 class="text-3xl font-bold text-gray-800">12,450</h3>
+                            </div>
+                            <div class="p-3 bg-blue-100 rounded-full text-blue-600">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <p class="text-green-500 text-sm mt-4"><i class="fas fa-arrow-up"></i> 12% increase</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Donations</p>
+                                <h3 class="text-3xl font-bold text-gray-800">$1.2M</h3>
+                            </div>
+                            <div class="p-3 bg-green-100 rounded-full text-green-600">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <p class="text-green-500 text-sm mt-4"><i class="fas fa-arrow-up"></i> 5% increase</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">Active Jobs</p>
+                                <h3 class="text-3xl font-bold text-gray-800">342</h3>
+                            </div>
+                            <div class="p-3 bg-purple-100 rounded-full text-purple-600">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                        </div>
+                        <p class="text-red-500 text-sm mt-4"><i class="fas fa-arrow-down"></i> 2% decrease</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-orange-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">Pending Verification</p>
+                                <h3 class="text-3xl font-bold text-gray-800">28</h3>
+                            </div>
+                            <div class="p-3 bg-orange-100 rounded-full text-orange-600">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                        </div>
+                        <p class="text-orange-500 text-sm mt-4">Action required</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activities Table -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-800">Recent Registrations</h3>
+                        <button class="btn btn-sm btn-outline">View All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-gray-600 text-sm uppercase">
+                                <tr>
+                                    <th class="p-4">Name</th>
+                                    <th class="p-4">Grad. Year</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold">
+                                            JD</div>
+                                        <span class="font-medium">John Doe</span>
+                                    </td>
+                                    <td class="p-4">2023</td>
+                                    <td class="p-4"><span
+                                            class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Pending</span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">Today</td>
+                                    <td class="p-4">
+                                        <button class="text-green-600 hover:text-green-800 mr-2"><i
+                                                class="fas fa-check"></i></button>
+                                        <button class="text-red-600 hover:text-red-800"><i
+                                                class="fas fa-times"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">
+                                            AS</div>
+                                        <span class="font-medium">Alice Smith</span>
+                                    </td>
+                                    <td class="p-4">2020</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Verified</span>
+                                    </td>
+                                    <td class="p-4 text-gray-500">Yesterday</td>
+                                    <td class="p-4 text-gray-400">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab (Placeholder for other tabs) -->
+            <div id="users-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">User Management</h2>
+                <div class="bg-white p-12 rounded-lg shadow-sm text-center">
+                    <i class="fas fa-users-cog text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700">User Management Module</h3>
+                    <p class="text-gray-500 mt-2">Manage alumni, verify profiles, and handle permissions.</p>
+                </div>
+            </div>
+            <div id="jobs-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Job Postings</h2>
+                <div class="bg-white p-12 rounded-lg shadow-sm text-center">
+                    <i class="fas fa-briefcase text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700">Job Management Module</h3>
+                    <p class="text-gray-500 mt-2">Approve and manage job postings.</p>
+                </div>
+            </div>
+            <div id="events-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Event Management</h2>
+                <div class="bg-white p-12 rounded-lg shadow-sm text-center">
+                    <i class="fas fa-calendar-check text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700">Events Module</h3>
+                    <p class="text-gray-500 mt-2">Create and manage alumni events.</p>
+                </div>
+            </div>
+            <div id="donations-tab" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Donation Tracking</h2>
+                <div class="bg-white p-12 rounded-lg shadow-sm text-center">
+                    <i class="fas fa-hand-holding-usd text-gray-300 text-6xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700">Donations Module</h3>
+                    <p class="text-gray-500 mt-2">Track fundraising campaigns and donations.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

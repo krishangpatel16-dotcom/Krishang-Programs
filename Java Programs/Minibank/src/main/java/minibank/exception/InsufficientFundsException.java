@@ -1,0 +1,13 @@
+package minibank.exception;
+
+public final class InsufficientFundsException extends BankException {
+    private static final long serialVersionUID = 1L;
+    private final long shortfall;
+
+    public InsufficientFundsException(long shortfall) {
+        super("Insufficient funds; short by " + shortfall + ".");
+        this.shortfall = shortfall;
+    }
+
+    public long getShortfall() { return shortfall; }
+}
